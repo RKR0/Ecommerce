@@ -38,10 +38,15 @@ public class Order {
 			// count for no of items
 			int count =0;
 			if(rs.next()) {
+				
+				
 				for(Products product:ItemsInCart) {
 					// update order details to order table
+					
 					String order = "INSERT INTO orders(group_order_id,customer_id,product_id) VALUES("+rs.getInt("id")+","+customer.getId()+","+product.getId()+")";
 					count+=dbcon.updateDatabase(order);
+					// update data base productDetails
+					Products.updateQuantity(product);
 				}
 				return count;
 			}
